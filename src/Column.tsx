@@ -1,17 +1,28 @@
 import { ColumnContainer, ColumnTitle } from "./styles"
-import React, {FC} from "react";
-import {AddNewItem} from "./AddNewItem";
+import React from "react";
+import { AddNewItem } from "./AddNewItem";
+import { useAppState } from "./state/AppStateContext";
+import { Card } from "./Card";
 
 type ColumnProps = {
   text: string
-  children?: React.ReactNode
+  id: string
 }
 
-export const Column: FC<ColumnProps> = ({ text, children }: ColumnProps) => {
+export const Column = ({ text, id }: ColumnProps) => {
+  const { getTasksByListId } = useAppState()
+
+  const tasks = getTasksByListId(id)
+
   return (
     <ColumnContainer>
       <ColumnTitle>{text}</ColumnTitle>
-      {children}
+
+      {
+        tasks.map(task => (
+          <Card text={task.text} id={task.id} key={task.id} />
+        ))
+      }
       
       <AddNewItem
         onAdd={console.log}

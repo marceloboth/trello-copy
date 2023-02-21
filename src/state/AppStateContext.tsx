@@ -2,6 +2,10 @@ import React, { createContext, useContext } from "react";
 
 const AppStateContext = createContext<AppStateContextProps>({} as AppStateContextProps)
 
+export const useAppState = () => {
+  return useContext(AppStateContext)
+}
+
 type Task = {
   id: string
   text: string
