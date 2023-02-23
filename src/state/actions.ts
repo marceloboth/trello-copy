@@ -20,6 +20,15 @@ export type Action =
   type: "SET_DRAGGED_ITEM"
   payload: DragItem | null
 }
+  | {
+  type: "MOVE_TASK"
+  payload: {
+    draggedItemId: string
+    hoveredItemId: string | null
+    sourceColumnId: string
+    targetColumnId: string
+  }
+}
 
 export const addTask = (
   text: string,
@@ -55,4 +64,19 @@ export const setDraggedItem = (
 ): Action => ({
   type: "SET_DRAGGED_ITEM",
   payload: draggedItem
+})
+
+export const moveTask = (
+  draggedItemId: string,
+  hoveredItemId: string | null,
+  sourceColumnId: string,
+  targetColumnId: string
+): Action => ({
+  type: "MOVE_TASK",
+  payload: {
+    draggedItemId,
+    hoveredItemId,
+    sourceColumnId,
+    targetColumnId
+  }
 })
